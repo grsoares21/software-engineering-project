@@ -1,0 +1,21 @@
+<html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script>
+        function sendGet() {
+            var text = document.getElementById("textInput").value;
+
+            $.ajax({
+              type: "GET",
+              url: "/test",
+              data: {texto: text},
+              success: function(data, textStatus, request){
+                    alert("O servidor processou a request e respondeu o numero: " + request.getResponseHeader('numero'));
+                }
+            });
+        }
+    </script>
+    <h1>Hello World HTMLs</h1>
+    <input type="text" id="textInput"/>
+    <button onclick="sendGet()">Mandar request</button>
+</html>
