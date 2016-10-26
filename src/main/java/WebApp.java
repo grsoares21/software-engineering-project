@@ -1,3 +1,4 @@
+import db.DatabaseHelper;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -10,6 +11,7 @@ public class WebApp {
         webapp.setOverrideDescriptor("src/main/resources/webapp/WEB-INF/web.xml");
         webapp.setContextPath("/"); //set root URL to access this context
 
+        DatabaseHelper.initializeDatabase();
         server.setHandler(webapp);
         server.start();
         server.join();
