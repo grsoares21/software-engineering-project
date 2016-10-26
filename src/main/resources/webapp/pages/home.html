@@ -1,20 +1,18 @@
 <html>
-    <link rel="import" href="/webapp/include/frameworks.html">
-    <script>
-        function sendGet() {
-            var text = document.getElementById("textInput").value;
-
-            $.ajax({
-              type: "GET",
-              url: "/test",
-              data: {texto: text},
-              success: function(data, textStatus, request){
-                    alert("O servidor processou a request e respondeu o numero: " + request.getResponseHeader('numero'));
-                }
-            });
-        }
-    </script>
-    <h1>Hello World HTMLs</h1>
-    <input type="text" id="textInput"/>
-    <button onclick="sendGet()">Mandar request</button>
+    <head>
+        <link rel="import" href="/webapp/include/frameworks.html">
+        <link rel="stylesheet" href="/webapp/css/main.css">
+        <script type="text/javascript">
+            function loadComponents() {
+                $("#header").load("webapp/include/header.html");
+            }
+            window.onload = loadComponents;
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+            </div>
+        </div>
+    </body>
 </html>

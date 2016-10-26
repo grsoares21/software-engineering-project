@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <link rel="import" href="/webapp/include/frameworks.html">
+        <link rel="stylesheet" href="/webapp/css/main.css">
+        <script type="text/javascript">
+            function loadComponents() {
+                $("#header").load("../include/header.html");
+            }
+            window.onload = loadComponents;
+
+            function searchProducts () {
+
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+            </div>
+            <div class="jumbotron">
+                <h1 class="display-3">Informe os filtros da sua procura:</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="searchQuery">Procurar por um texto:</label>
+                        <input class="form-control" type="text" id="searchQuery" placeholder="Insira um texto"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Escolha uma categoria:</label>
+                        <select class="form-control" id="category">
+                            <option>Todas</option>
+                            <option>Brinquedos e Hobbies</option>
+                            <option>Cozinha</option>
+                            <option>Decora&ccedil&atildeo</option>
+                            <option>Eletrodom&eacutesticos</option>
+                            <option>Eletr&ocircnicos</option>
+                            <option>Esportes</option>
+                            <option>Inform&aacutetica</option>
+                            <option>Joias e Rel&oacutegios</option>
+                            <option>Literatura</option>
+                            <option>Materiais Escolares</option>
+                            <option>M&oacuteveis</option>
+                            <option>Quarto</option>
+                            <option>Vestu&aacuterio</option>
+                            <option>Outros</option>
+                        </select>
+                    </div>
+                </form>
+                <button onclick="searchProducts();" class="btn btn-success btn-lg">Procurar</button>
+            </div>
+            <div hidden id="searchResults">
+                <h1>Resultados:</h1>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+.container {
+    max-width: 66%;
+}
+
+.header {
+    margin-top: 15px;
+    padding-bottom: 1rem;
+    border-bottom: .05rem solid #e5e5e5;
+}
+
+.jumbotron {
+  text-align: center;
+  border-bottom: .05rem solid #e5e5e5;
+  margin-top: 30px;
+}
+
+.jumbotron .btn {
+  padding: .75rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.display-3 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    padding-bottom: 10px;
+    border-bottom: .05rem solid #aaaaaa;
+}
+
+.btn {
+    margin-top: 10px;
+}
