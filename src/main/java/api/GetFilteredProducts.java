@@ -14,24 +14,20 @@ import java.sql.*;
 public class GetFilteredProducts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String searchQuery = req.getParameter("search_query");
+        String searchQuery = req.getParameter("searchQuery");
         String category = req.getParameter("category");
 
         Date currentDate = new Date(new java.util.Date().getTime());
 
         Connection conn = DatabaseHelper.getDatabaseConnection();
         String querySQL = "SELECT * FROM offered_products WHERE";
-        if(searchQuery != null) {
-            querySQL = querySQL + " (name LIKE '%" + searchQuery + "%' OR " +
+
+        querySQL = querySQL + " (name LIKE '%" + searchQuery + "%' OR " +
                     "description LIKE '%" + searchQuery + "%' OR " +
                     "defect_description LIKE '%" + searchQuery + "%')";
 
-            if(category != null) {
-                querySQL = querySQL + " AND ";
-            }
-        }
         if(category != null) {
-            querySQL = querySQL + " category = " + category;
+            querySQL = querySQL + " AND category = " + category;
         }
 
         querySQL = querySQL + " AND final_date > '" + currentDate.toString() + "'";

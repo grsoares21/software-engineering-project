@@ -9,6 +9,22 @@
             window.onload = loadComponents;
 
             function searchProducts () {
+               var categoryVal = parseInt($("#category").val());
+               var searchQueryVal = $("#searchQuery").val();
+
+               var requestData = {searchQuery: searchQueryVal};
+
+               if(categoryVal != 1) {
+                    requestData.category = categoryVal;
+               }
+
+               $.ajax({
+                  url: "/getFilteredProducts",
+                  data: requestData,
+                  success: function (data) {
+
+                  }
+                });
 
             }
         </script>
@@ -27,21 +43,21 @@
                     <div class="form-group">
                         <label for="category">Escolha uma categoria:</label>
                         <select class="form-control" id="category">
-                            <option>Todas</option>
-                            <option>Brinquedos e Hobbies</option>
-                            <option>Cozinha</option>
-                            <option>Decora&ccedil&atildeo</option>
-                            <option>Eletrodom&eacutesticos</option>
-                            <option>Eletr&ocircnicos</option>
-                            <option>Esportes</option>
-                            <option>Inform&aacutetica</option>
-                            <option>Joias e Rel&oacutegios</option>
-                            <option>Literatura</option>
-                            <option>Materiais Escolares</option>
-                            <option>M&oacuteveis</option>
-                            <option>Quarto</option>
-                            <option>Vestu&aacuterio</option>
-                            <option>Outros</option>
+                            <option value="1">Todas</option>
+                            <option value="2">Brinquedos e Hobbies</option>
+                            <option value="3">Cozinha</option>
+                            <option value="4">Decora&ccedil&atildeo</option>
+                            <option value="5">Eletrodom&eacutesticos</option>
+                            <option value="6">Eletr&ocircnicos</option>
+                            <option value="7">Esportes</option>
+                            <option value="8">Inform&aacutetica</option>
+                            <option value="9">Joias e Rel&oacutegios</option>
+                            <option value="10">Literatura</option>
+                            <option value="11">Materiais Escolares</option>
+                            <option value="12">M&oacuteveis</option>
+                            <option value="13">Quarto</option>
+                            <option value="14">Vestu&aacuterio</option>
+                            <option value="15">Outros</option>
                         </select>
                     </div>
                 </form>
