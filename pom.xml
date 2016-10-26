@@ -18,5 +18,10 @@
             <artifactId>jetty-jsp</artifactId>
             <version>9.2.18.v20160721</version>
         </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.8.11.2</version>
+        </dependency>
     </dependencies>
 </project>
