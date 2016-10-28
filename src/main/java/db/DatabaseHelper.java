@@ -17,7 +17,7 @@ public class DatabaseHelper {
                 String sql = "CREATE TABLE offered_products (" +
                         "    id integer NOT NULL CONSTRAINT offered_products_pk PRIMARY KEY AUTOINCREMENT," +
                         "    name varchar(50) NOT NULL," +
-                        "    description text NOT NULL," +
+                        "    product_description text NOT NULL," +
                         "    defect_description text NOT NULL," +
                         "    category tinyint NOT NULL," +
                         "    final_date date NOT NULL" +

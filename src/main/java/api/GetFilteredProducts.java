@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class GetFilteredProducts extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchQuery = req.getParameter("searchQuery");
@@ -23,7 +24,7 @@ public class GetFilteredProducts extends HttpServlet {
         String querySQL = "SELECT * FROM offered_products WHERE";
 
         querySQL = querySQL + " (name LIKE '%" + searchQuery + "%' OR " +
-                    "description LIKE '%" + searchQuery + "%' OR " +
+                    "product_description LIKE '%" + searchQuery + "%' OR " +
                     "defect_description LIKE '%" + searchQuery + "%')";
 
         if(category != null) {
@@ -43,7 +44,7 @@ public class GetFilteredProducts extends HttpServlet {
 
                 currentProductJSON.put("id", result.getInt("id"));
                 currentProductJSON.put("name", result.getString("name"));
-                currentProductJSON.put("description", result.getString("description"));
+                currentProductJSON.put("description", result.getString("product_description"));
                 currentProductJSON.put("defectDescription", result.getString("defect_description"));
                 currentProductJSON.put("category", result.getInt("category"));
                 currentProductJSON.put("finalDate", result.getString("final_date"));
