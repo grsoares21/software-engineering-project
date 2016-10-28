@@ -8,13 +8,45 @@
             }
             window.onload = loadComponents;
 
+            function getCategoryName(index) {
+                var categoryArray = [
+                            "Brinquedos e Hobbies",
+                            "Cozinha",
+                            "Decora&ccedil&atildeo",
+                            "Eletrodom&eacutesticos",
+                            "Eletr&ocircnicos",
+                            "Esportes",
+                            "Inform&aacutetica",
+                            "Joias e Rel&oacutegios",
+                            "Literatura",
+                            "Materiais Escolares",
+                            "M&oacuteveis",
+                            "Quarto",
+                            "Vestu&aacuterio",
+                            "Outros"
+                            ];
+
+                return categoryArray[index];
+            }
+
+            function getDateFullString(date) {
+                var monthNames = [
+                          "Janeiro", "Fevereiro", "Mar&ccedilo",
+                          "Abril", "Maio", "Junho", "Julho",
+                          "Agosto", "Setembro", "Outubro",
+                          "Novembro", "Dezembro"
+                        ];
+
+                return date.getDate() + " de " + monthNames[date.getMonth()] + " de " + date.getFullYear();
+            }
+
             function searchProducts () {
                var categoryVal = parseInt($("#category").val());
                var searchQueryVal = $("#searchQuery").val();
 
                var requestData = {searchQuery: searchQueryVal};
 
-               if(categoryVal != 1) {
+               if(categoryVal != 0) {
                     requestData.category = categoryVal;
                }
 
@@ -22,7 +54,22 @@
                   url: "/getFilteredProducts",
                   data: requestData,
                   success: function (data) {
+                      var i;
+                      var tableBody = $("#resultTableBody");
+                      tableBody.empty();
 
+                      for(i = 0; i < data.length; i++) {
+
+                          var newElement = $("<tr></tr>");
+                          newElement.append("<td>" + data[i].name + "</td>");
+                          newElement.append("<td><p>" + data[i].description + "</p></td>");
+                          newElement.append("<td><p>" + data[i].defectDescription + "</p></td>");
+                          newElement.append("<td>" + getCategoryName(data[i].category) + "</td>");
+                          newElement.append("<td>" + getDateFullString(new Date(data[i].finalDate)) + "</td>");
+                          tableBody.append(newElement);
+                      }
+
+                      $("#searchResults").show();
                   }
                 });
 
@@ -43,28 +90,42 @@
                     <div class="form-group">
                         <label for="category">Escolha uma categoria:</label>
                         <select class="form-control" id="category">
-                            <option value="1">Todas</option>
-                            <option value="2">Brinquedos e Hobbies</option>
-                            <option value="3">Cozinha</option>
-                            <option value="4">Decora&ccedil&atildeo</option>
-                            <option value="5">Eletrodom&eacutesticos</option>
-                            <option value="6">Eletr&ocircnicos</option>
-                            <option value="7">Esportes</option>
-                            <option value="8">Inform&aacutetica</option>
-                            <option value="9">Joias e Rel&oacutegios</option>
-                            <option value="10">Literatura</option>
-                            <option value="11">Materiais Escolares</option>
-                            <option value="12">M&oacuteveis</option>
-                            <option value="13">Quarto</option>
-                            <option value="14">Vestu&aacuterio</option>
-                            <option value="15">Outros</option>
+                            <option value="0">Todas</option>
+                            <option value="1">Brinquedos e Hobbies</option>
+                            <option value="2">Cozinha</option>
+                            <option value="3">Decora&ccedil&atildeo</option>
+                            <option value="4">Eletrodom&eacutesticos</option>
+                            <option value="5">Eletr&ocircnicos</option>
+                            <option value="6">Esportes</option>
+                            <option value="7">Inform&aacutetica</option>
+                            <option value="8">Joias e Rel&oacutegios</option>
+                            <option value="9">Literatura</option>
+                            <option value="10">Materiais Escolares</option>
+                            <option value="11">M&oacuteveis</option>
+                            <option value="12">Quarto</option>
+                            <option value="13">Vestu&aacuterio</option>
+                            <option value="14">Outros</option>
                         </select>
                     </div>
                 </form>
                 <button onclick="searchProducts();" class="btn btn-success btn-lg">Procurar</button>
             </div>
-            <div hidden id="searchResults">
+            <div hidden id="searchResults" style="margin-bottom: 50px">
                 <h1>Resultados:</h1>
+                <div style="border: 1px solid #aaaaaa; border-radius: 15px">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome do Produto</th>
+                                <th>Descri&ccedil&atildeo do Produto</th>
+                                <th>Descri&ccedil&atildeo do Defeito</th>
+                                <th>Categoria</th>
+                                <th>Data final do leil&atildeo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultTableBody">
+                        </tbody>
+                </div>
             </div>
         </div>
     </body>
