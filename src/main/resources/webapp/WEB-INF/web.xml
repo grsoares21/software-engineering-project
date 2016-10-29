@@ -23,4 +23,13 @@
         <url-pattern>/getFilteredProducts</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>registerProducts</servlet-name>
+        <servlet-class>api.RegisterProducts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerProducts</servlet-name>
+        <url-pattern>/registerProducts</url-pattern>
+    </servlet-mapping>
+
 </web-app>
