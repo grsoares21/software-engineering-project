@@ -2,10 +2,15 @@
     <head>
         <link rel="import" href="/webapp/include/frameworks.html">
         <link rel="stylesheet" href="/webapp/css/main.css">
+        <!--Nao sei o que botar aqui!-->   
         <script type="text/javascript">
+            function loadComponents() {
+                $("#header").load("../include/header.html");
+            }
+            window.onload = loadComponents;
             
             
-         <!--Nao sei o que botar aqui-->   
+
         </script> 
     </head>
     <body>
@@ -50,7 +55,7 @@
                         <input class="form-control" type="text" id="final_date" placeholder="Insira um texto"/>
                     </div>   
                 </form>
-                <!--botar alguma funcao ae-->  
+                <!--botar alguma funcao aqui-->  
                 <button onclick="" class="btn btn-success btn-lg">Cadastrar</button>
             </div>
     </body>
