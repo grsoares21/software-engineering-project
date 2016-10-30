@@ -14,15 +14,15 @@ public class RegisterProducts extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String category = req.getParameter("category"); 
-        String productDescription = req.getParameter("description");
-        String defectDescription = req.getParameter("defect_description");
-        String finalDate = req.getParameter("final_date");
+        String productDescription = req.getParameter("productDescription");
+        String defectDescription = req.getParameter("defectDescription");
+        String finalDate = req.getParameter("finalDate");
         
         Connection conn = DatabaseHelper.getDatabaseConnection();
         
         String querySQL = "INSERT INTO offered_products (name, product_description, defect_description, category, final_date)"
                            + " VALUES (" + "'" + name + "'" + ", " + "'" + productDescription + "'"  +  ", " + "'" + defectDescription + "'" + ", " + category + ", " + "'" + finalDate + "'" + ")";
-        
+
         Statement stmt = null;
         try {
             stmt = conn.createStatement();

@@ -1,0 +1,83 @@
+<html>
+<head>
+    <link rel="import" href="/webapp/include/frameworks.html">
+    <link rel="stylesheet" href="/webapp/css/main.css">
+
+    <script type="text/javascript">
+            function loadComponents() {
+                $("#header").load("../include/header.html");
+            }
+            window.onload = loadComponents;
+
+            function registerProducts() {
+                var categoryVal = parseInt($("#category").val());
+                var name = $("#name").val();
+                var productDescription = $("#description").val();
+                var defectDescription = $("#defect_description").val();
+                var finalDate = $("#final_date").val();
+
+                var requestData = {};
+
+                requestData.name = name;
+                requestData.category = categoryVal;
+                requestData.productDescription = productDescription;
+                requestData.defectDescription = defectDescription;
+                requestData.finalDate = finalDate;
+
+                $.ajax({
+                  type: "POST",
+                  url: "/registerProducts",
+                  data: requestData,
+                  success: function (data) {
+
+                  }
+                });
+            }
+        </script>
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+        </div>
+        <div class="jumbotron">
+            <h1 class="display-3">Informe os campos do leil&atildeo:</h1>
+            <form>
+                <div class="form-group">
+                    <label for="name">Nome do produto</label>
+                    <input class="form-control" type="text" id="name" placeholder="Insira um texto"/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descri&ccedil&atildeo do produto</label>
+                    <input class="form-control" type="text" id="description" placeholder="Insira um texto"/>
+                </div>
+                <label for="defect_description">Descri&ccedil&atildeo do defeito</label>
+                <input class="form-control" type="text" id="defect_description" placeholder="Insira um texto"/>
+                <div class="form-group">
+                    <label for="category">Escolha uma categoria:</label>
+                    <select class="form-control" id="category">
+                        <option value="1">Brinquedos e Hobbies</option>
+                        <option value="2">Cozinha</option>
+                        <option value="3">Decora&ccedil&atildeo</option>
+                        <option value="4">Eletrodom&eacutesticos</option>
+                        <option value="5">Eletr&ocircnicos</option>
+                        <option value="6">Esportes</option>
+                        <option value="7">Inform&aacutetica</option>
+                        <option value="8">Joias e Rel&oacutegios</option>
+                        <option value="9">Literatura</option>
+                        <option value="10">Materiais Escolares</option>
+                        <option value="11">M&oacuteveis</option>
+                        <option value="12">Quarto</option>
+                        <option value="13">Vestu&aacuterio</option>
+                        <option value="14">Outros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="final_date">Data final do leil&atildeo</label>
+                    <input class="form-control" type="text" id="final_date" placeholder="Insira um texto"/>
+                </div>
+            </form>
+            <button onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
+        </div>
+    </div>
+</body>
+</html>
