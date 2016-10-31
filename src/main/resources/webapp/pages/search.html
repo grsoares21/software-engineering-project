@@ -47,7 +47,7 @@
                var requestData = {searchQuery: searchQueryVal};
 
                if(categoryVal != 0) {
-                    requestData.category = categoryVal;
+                    requestData.category = categoryVal - 1;
                }
 
                $.ajax({
