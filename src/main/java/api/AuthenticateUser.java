@@ -1,7 +1,6 @@
 package api;
 
 import db.DatabaseHelper;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -14,8 +13,15 @@ import java.sql.*;
 public class AuthenticateUser extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sessionToken = req.getAttribute("session_token").toString();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Object sessionTokenObj = req.getSession().getAttribute("session_token");
+        String sessionToken;
+
+        if(sessionTokenObj != null) {
+            sessionToken = sessionTokenObj.toString();
+        } else {
+            sessionToken = "";
+        }
 
         Connection conn = DatabaseHelper.getDatabaseConnection();
         String querySQL = "SELECT * FROM users WHERE session_token = '" + sessionToken + "'";

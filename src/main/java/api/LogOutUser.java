@@ -18,6 +18,6 @@ public class LogOutUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("session_token", "");
+        req.getSession().setAttribute("session_token", "");
     }
 }

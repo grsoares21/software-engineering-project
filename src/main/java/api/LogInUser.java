@@ -18,8 +18,8 @@ public class LogInUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getAttribute("username").toString();
-        String password = req.getAttribute("password").toString();
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
 
         String hashedPassword = DigestUtils.sha256Hex(password);
 

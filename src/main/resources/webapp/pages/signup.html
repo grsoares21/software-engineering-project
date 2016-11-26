@@ -5,34 +5,60 @@
 
         <script type="text/javascript">
                 function loadComponents() {
+                    $.ajax({
+                      type: "POST",
+                      url: "/authenticateUser",
+                      success: function (data) {
+                        if(data.userAuthenticated != "N") {
+                            window.location.replace("/");
+                        }
+                      }
+                    });
                     $("#header").load("../include/header.html");
                 }
                 window.onload = loadComponents;
 
+                function userTypeChanged() {
+                    var userType = parseInt($("#type").val());
+                    if(userType == 1) {
+                        $("#cnpj-group").show();
+                        $("#cnpj").attr("required", true);
+                    } else {
+                        $("#cnpj-group").hide();
+                        $("#cnpj").removeAttr("required");
+                    }
+                }
+
+
                 function registerUser() {
-                    var categoryVal = parseInt($("#category").val());
+                    $("#submit").button('loading');
+
                     var name = $("#name").val();
-                    var productDescription = $("#description").val();
-                    var defectDescription = $("#defect_description").val();
-                    var finalDate = $("#final_date").val();
+                    var username = $("#username").val();
+                    var email = $("#email").val();
+                    var password = $("#password").val();
+                    var type = parseInt($("#type").val());
+                    var cnpj = $("#cnpj").val();
 
                     var requestData = {};
 
                     requestData.name = name;
-                    requestData.category = categoryVal;
-                    requestData.productDescription = productDescription;
-                    requestData.defectDescription = defectDescription;
-                    requestData.finalDate = finalDate;
+                    requestData.username = username;
+                    requestData.email = email;
+                    requestData.password = password;
+                    requestData.type = type;
+                    requestData.cnpj = cnpj;
 
                     $.ajax({
                       type: "POST",
-                      url: "/registerProducts",
+                      url: "/registerUser",
                       data: requestData,
                       success: function (data) {
-                        $("#success-alert").show().fadeOut(1000, function() {$("#success-alert").hide().css('opacity', '1.0');});
-
+                         window.location.replace("/");
                       }
                     });
+
+                    return false;
                 }
             </script>
     </head>
@@ -42,45 +68,34 @@
             </div>
             <div class="jumbotron">
                 <h1 class="display-3">Insira seus dados:</h1>
-                <form>
+                <form id="signUpForm" onsubmit="registerUser();" action="javascript:void(0);">
                     <div class="form-group">
                         <label for="name">Nome:</label>
-                        <input class="form-control" type="text" id="name" placeholder="Insira seu nome"/>
+                        <input required class="form-control" type="text" id="name" placeholder="Insira seu nome"/>
                     </div>
                     <div class="form-group">
-                        <label for="description">Nome de usu&aacuterio:</label>
-                        <input class="form-control" type="text" id="description" placeholder="Insira um nome de usu&aacute;rio"/>
+                        <label for="username">Nome de usu&aacuterio:</label>
+                        <input required pattern="[a-zA-Z0-9]+" class="form-control" type="text" id="username" placeholder="Insira um nome de usu&aacute;rio"/>
                     </div>
-                    <label for="defect_description">E-mail</label>
-                    <input class="form-control" type="email" id="defect_description" placeholder="Insira um texto"/>
+                    <label for="email">E-mail</label>
+                    <input class="form-control" type="email" id="email" placeholder="Insira um texto"/>
                     <div class="form-group">
-                        <label for="category">Escolha uma categoria:</label>
-                        <select class="form-control" id="category">
-                            <option value="0">Brinquedos e Hobbies</option>
-                            <option value="1">Cozinha</option>
-                            <option value="2">Decora&ccedil&atildeo</option>
-                            <option value="3">Eletrodom&eacutesticos</option>
-                            <option value="4">Eletr&ocircnicos</option>
-                            <option value="5">Esportes</option>
-                            <option value="6">Inform&aacutetica</option>
-                            <option value="7">Joias e Rel&oacutegios</option>
-                            <option value="8">Literatura</option>
-                            <option value="9">Materiais Escolares</option>
-                            <option value="10">M&oacuteveis</option>
-                            <option value="11">Quarto</option>
-                            <option value="12">Vestu&aacuterio</option>
-                            <option value="13">Outros</option>
+                        <label for="password">Senha:</label>
+                        <input required class="form-control" type="password" id="password" placeholder="Insira uma senha"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Voc&ecirc; &eacute;:</label>
+                        <select class="form-control" id="type" onchange="userTypeChanged()">
+                            <option value="0">Comprador</option>
+                            <option value="1">Vendedor</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="final_date">Data final do leil&atildeo</label>
-                        <input class="form-control" type="date" id="final_date"/>
+                    <div hidden id="cnpj-group" class="form-group">
+                        <label for="cnpj">CNPJ:</label>
+                        <input pattern="[0-9]{14}" class="form-control" type="text" id="cnpj" placeholder="Insira seu CNPJ (14 n&uacute;meros) sem pontos, barras ou espa&ccedil;os"/>
                     </div>
+                    <input id="submit" type="submit" class="btn btn-success btn-lg" value="Cadastrar" data-loading-text="Registrando Usu&aacute;rio..."/>
                 </form>
-                <button onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
-            </div>
-            <div id="success-alert" hidden class="alert alert-success fade in">
-                <strong>Produto registrado com sucesso!</strong>
             </div>
         </div>
     </body>

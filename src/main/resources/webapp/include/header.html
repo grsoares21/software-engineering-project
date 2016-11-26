@@ -1,16 +1,72 @@
-<div class="header">
+<script>
+    $("#header").ready(function () {
+        $.ajax({
+          type: "POST",
+          url: "/authenticateUser",
+          success: function (data) {
+            if(data.userAuthenticated == "Y") {
+                $("#logOut").show();
+                if(data.type == 0) {
+                    $("#searchProduct").show();
+                } else if(data.type == 1) {
+                    $("#registerProduct").show();
+                }
+            } else {
+                $("#signUp").show();
+                $("#logInForm").show();
+            }
+          }
+        });
+    });
+
+    function logOutUser() {
+        $.ajax({
+          type: "POST",
+          url: "/logOutUser",
+          success: function (data) {
+            window.location.replace("/");
+          }
+        });
+    }
+
+    function logInUser() {
+        var requestData = {};
+        requestData.username = $("#logInUsername").val();
+        requestData.password = $("#logInPassword").val();
+
+        $.ajax({
+          type: "POST",
+          url: "/logInUser",
+          data: requestData,
+          success: function (data) {
+            window.location.replace("/");
+          }
+        });
+    }
+</script>
+<div class="header" id="header">
     <nav>
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
+            <li id="registerProduct" style="display: none;" class="nav-item">
                 <a class="nav-link" href="/webapp/pages/register.html">Cadastrar produto</a>
-            </li>    
-            <!--added this-->
-            <li class="nav-item">
+            </li>
+            <li id="searchProduct" style="display: none;" class="nav-item">
                 <a class="nav-link" href="/webapp/pages/search.html">Procurar produto</a>
             </li>
+            <li id="signUp" style="display: none;" class="nav-item">
+                <a class="nav-link" href="/webapp/pages/signup.html">Cadastrar-se</a>
+            </li>
+            <button style="display: none;" id="logOut" class="btn btn-warning pull-right" onclick="logOutUser();">Sair</button>
+            <form style="display: none; padding: 0px; margin: 0px;" id="logInForm" class="navbar-form navbar-right">
+                <label for="logInUsername">Nome de Usu&aacute;rio:</label>
+                <input id="logInUsername" type="text" class="form-control input-sm"/>
+                <label for="logInPassword">Senha:</label>
+                <input id="logInPassword" type="password" class="form-control input-sm"/>
+                <button class="btn btn-success btn-sm" style="margin-top:0px;" onclick="logInUser();">Entrar</button>
+            </form>
         </ul>
     </nav>
 </div>

@@ -48,7 +48,7 @@ public class RegisterUser extends HttpServlet {
                     + ", " + "'" + sessionToken + "'" + ")";
         } else {
             querySQL = "INSERT INTO users (password, username, name, email, type, session_token)"
-                    + " VALUES (" + "'" + password + "'"
+                    + " VALUES (" + "'" + hashedPassword + "'"
                     + ", " + "'" + username + "'"
                     + ", " + "'" + name + "'"
                     + ", " + "'" + email + "'"

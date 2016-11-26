@@ -5,7 +5,17 @@
 
     <script type="text/javascript">
             function loadComponents() {
+                $.ajax({
+                  type: "POST",
+                  url: "/authenticateUser",
+                  success: function (data) {
+                    if(data.userAuthenticated != "Y" || data.type != 1) {
+                        window.location.replace("/");
+                    }
+                  }
+                });
                 $("#header").load("../include/header.html");
+
             }
             window.onload = loadComponents;
 

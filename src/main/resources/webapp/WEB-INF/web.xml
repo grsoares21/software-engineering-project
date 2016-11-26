@@ -32,4 +32,40 @@
         <url-pattern>/registerProducts</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>registerUser</servlet-name>
+        <servlet-class>api.RegisterUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerUser</servlet-name>
+        <url-pattern>/registerUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logOutUser</servlet-name>
+        <servlet-class>api.LogOutUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logOutUser</servlet-name>
+        <url-pattern>/logOutUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logInUser</servlet-name>
+        <servlet-class>api.LogInUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logInUser</servlet-name>
+        <url-pattern>/logInUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>authenticateUser</servlet-name>
+        <servlet-class>api.AuthenticateUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authenticateUser</servlet-name>
+        <url-pattern>/authenticateUser</url-pattern>
+    </servlet-mapping>
+
 </web-app>
