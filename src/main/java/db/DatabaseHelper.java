@@ -143,11 +143,12 @@ public class DatabaseHelper {
         String sql = "CREATE TABLE users (" +
                 " id integer NOT NULL CONSTRAINT users_pk PRIMARY KEY AUTOINCREMENT," +
                 " password character(64) NOT NULL," +
-                " username varchar(50) NOT NULL," +
+                " username varchar(50) NOT NULL CONSTRAINT username_unique UNIQUE," +
                 " name varchar(100) NOT NULL," +
                 " email varchar(100) NOT NULL," +
                 " type tinyint NOT NULL," +
-                " cnpj character(14)" +
+                " cnpj character(14)," +
+                " session_token character(64) CONSTRAINT session_token_unique UNIQUE" +
                 ")";
         stmt.executeUpdate(sql);
         stmt.close();

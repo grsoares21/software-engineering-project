@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link rel="import" href="/webapp/include/frameworks.html">
+        <link rel="stylesheet" href="/webapp/css/main.css">
+
+        <script type="text/javascript">
+                function loadComponents() {
+                    $("#header").load("../include/header.html");
+                }
+                window.onload = loadComponents;
+
+                function registerUser() {
+                    var categoryVal = parseInt($("#category").val());
+                    var name = $("#name").val();
+                    var productDescription = $("#description").val();
+                    var defectDescription = $("#defect_description").val();
+                    var finalDate = $("#final_date").val();
+
+                    var requestData = {};
+
+                    requestData.name = name;
+                    requestData.category = categoryVal;
+                    requestData.productDescription = productDescription;
+                    requestData.defectDescription = defectDescription;
+                    requestData.finalDate = finalDate;
+
+                    $.ajax({
+                      type: "POST",
+                      url: "/registerProducts",
+                      data: requestData,
+                      success: function (data) {
+                        $("#success-alert").show().fadeOut(1000, function() {$("#success-alert").hide().css('opacity', '1.0');});
+
+                      }
+                    });
+                }
+            </script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+            </div>
+            <div class="jumbotron">
+                <h1 class="display-3">Insira seus dados:</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nome:</label>
+                        <input class="form-control" type="text" id="name" placeholder="Insira seu nome"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Nome de usu&aacuterio:</label>
+                        <input class="form-control" type="text" id="description" placeholder="Insira um nome de usu&aacute;rio"/>
+                    </div>
+                    <label for="defect_description">E-mail</label>
+                    <input class="form-control" type="email" id="defect_description" placeholder="Insira um texto"/>
+                    <div class="form-group">
+                        <label for="category">Escolha uma categoria:</label>
+                        <select class="form-control" id="category">
+                            <option value="0">Brinquedos e Hobbies</option>
+                            <option value="1">Cozinha</option>
+                            <option value="2">Decora&ccedil&atildeo</option>
+                            <option value="3">Eletrodom&eacutesticos</option>
+                            <option value="4">Eletr&ocircnicos</option>
+                            <option value="5">Esportes</option>
+                            <option value="6">Inform&aacutetica</option>
+                            <option value="7">Joias e Rel&oacutegios</option>
+                            <option value="8">Literatura</option>
+                            <option value="9">Materiais Escolares</option>
+                            <option value="10">M&oacuteveis</option>
+                            <option value="11">Quarto</option>
+                            <option value="12">Vestu&aacuterio</option>
+                            <option value="13">Outros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="final_date">Data final do leil&atildeo</label>
+                        <input class="form-control" type="date" id="final_date"/>
+                    </div>
+                </form>
+                <button onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
+            </div>
+            <div id="success-alert" hidden class="alert alert-success fade in">
+                <strong>Produto registrado com sucesso!</strong>
+            </div>
+        </div>
+    </body>
+</html>
