@@ -24,6 +24,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>getAuction</servlet-name>
+        <servlet-class>api.GetAuction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAuction</servlet-name>
+        <url-pattern>/getAuction</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>registerProducts</servlet-name>
         <servlet-class>api.RegisterProducts</servlet-class>
     </servlet>

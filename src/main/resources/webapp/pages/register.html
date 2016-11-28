@@ -19,12 +19,31 @@
             }
             window.onload = loadComponents;
 
+            var photoCounter = 1;
+            function addPhoto() {
+                if(photoCounter < 4) {
+                    var lastUrlId = "url" + photoCounter;
+                    var lastUrlInput = $("#" + lastUrlId);
+                    var newUrlInput = lastUrlInput.clone();
+                    photoCounter = photoCounter + 1;
+                    newUrlInput.attr("id", "url" + photoCounter);
+                    lastUrlInput.after(newUrlInput);
+                    if(photoCounter == 4) {
+                        $("#addPhotoButton").remove();
+                    }
+                }
+            }
+
             function registerProducts() {
                 var categoryVal = parseInt($("#category").val());
                 var name = $("#name").val();
                 var productDescription = $("#description").val();
                 var defectDescription = $("#defect_description").val();
                 var finalDate = $("#final_date").val();
+                var photoUrls = [];
+                for(var i = 1; i <= photoCounter; i++) {
+                    photoUrls.push($("#url" + i).val());
+                }
 
                 var requestData = {};
 
@@ -33,6 +52,7 @@
                 requestData.productDescription = productDescription;
                 requestData.defectDescription = defectDescription;
                 requestData.finalDate = finalDate;
+                requestData.photoUrls = photoUrls;
 
                 $.ajax({
                   type: "POST",
@@ -40,7 +60,6 @@
                   data: requestData,
                   success: function (data) {
                     $("#success-alert").show().fadeOut(1000, function() {$("#success-alert").hide().css('opacity', '1.0');});
-
                   }
                 });
             }
@@ -55,14 +74,14 @@
                 <form>
                     <div class="form-group">
                         <label for="name">Nome do produto</label>
-                        <input class="form-control" type="text" id="name" placeholder="Insira um texto"/>
+                        <input required class="form-control" type="text" id="name" placeholder="Insira um texto"/>
                     </div>
                     <div class="form-group">
                         <label for="description">Descri&ccedil&atildeo do produto</label>
-                        <input class="form-control" type="text" id="description" placeholder="Insira um texto"/>
+                        <input required class="form-control" type="text" id="description" placeholder="Insira um texto"/>
                     </div>
                     <label for="defect_description">Descri&ccedil&atildeo do defeito</label>
-                    <input class="form-control" type="text" id="defect_description" placeholder="Insira um texto"/>
+                    <input required class="form-control" type="text" id="defect_description" placeholder="Insira um texto"/>
                     <div class="form-group">
                         <label for="category">Escolha uma categoria:</label>
                         <select class="form-control" id="category">
@@ -86,8 +105,15 @@
                         <label for="final_date">Data final do leil&atildeo</label>
                         <input class="form-control" type="date" id="final_date"/>
                     </div>
+                    <div class="form-group" id="photoInputs" style="margin-bottom:0px;">
+                        <label for="final_date">URL das fotos do produto:</label>
+                        <input required class="form-control" type="text" id="url1" placeholder="Insira a URL da foto"/>
+                    </div>
+                    <div class="form-group">
+                        <button id="addPhotoButton" class="btn btn-primary btn-lg" type="button" onclick="addPhoto();">Adicionar foto</button>
+                    </div>
+                    <button type="button" onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
                 </form>
-                <button onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
             </div>
             <div id="success-alert" hidden class="alert alert-success fade in">
                 <strong>Produto registrado com sucesso!</strong>
