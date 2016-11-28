@@ -32,9 +32,8 @@ public class GetAuction extends HttpServlet {
 
             if(productResult.next()) {
                 // informacoes do produto
-                productJSON.put("id", productResult.getInt("id"));
                 productJSON.put("name", productResult.getString("name"));
-                productJSON.put("description", productResult.getString("product_description"));
+                productJSON.put("description", productResult.getString("description"));
                 productJSON.put("defectDescription", productResult.getString("defect_description"));
                 productJSON.put("category", productResult.getInt("category"));
                 productJSON.put("finalDate", productResult.getString("final_date"));
@@ -46,25 +45,32 @@ public class GetAuction extends HttpServlet {
                 ResultSet userResult = stmt.executeQuery(querySQL);
 
                 if(userResult.next()) {
-                    // informacoes do usuário
+                    // informacoes do usuario
                     productJSON.put("user_id", userResult.getInt("id"));
                     productJSON.put("username", userResult.getString("username"));
                     productJSON.put("user_name", userResult.getString("name"));
                     productJSON.put("email", userResult.getString("email"));
                 }
 
-                querySQL = "SELECT * FROM products_photos WHERE";
-                querySQL = querySQL + " id = " + productId;
+                //consulta lances para saber o preço
+                querySQL = "SELECT MAX(bid_value) FROM bids WHERE offered_product_id = " + productId;
+                ResultSet bidsResult = stmt.executeQuery(querySQL);
+                float price = 0;
+                if(bidsResult.next()) {
+                    price = bidsResult.getFloat(1);
+                }
+                productJSON.put("price", price);
 
-                // consulta banco de fotos
+                //consulta fotos
+                querySQL = "SELECT * FROM product_photos WHERE";
+                querySQL = querySQL + " offered_product_id = " + productId;
                 ResultSet photosResult = stmt.executeQuery(querySQL);
-
-                // informações das fotos: podemos ter mais de uma foto por produto
+                // informacoes das fotos: podemos ter mais de uma foto por produto
                 JSONArray photosArray = new JSONArray();
                 while (photosResult.next()) {
                     photosArray.put(photosResult.getString("url"));
                 }
-                productJSON.put("photos_array", photosArray);
+                productJSON.put("photosArray", photosArray);
             }
             resp.setContentType("application/json");
             resp.getOutputStream().print(productJSON.toString());

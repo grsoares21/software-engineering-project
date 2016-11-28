@@ -25,6 +25,7 @@
                     var lastUrlId = "url" + photoCounter;
                     var lastUrlInput = $("#" + lastUrlId);
                     var newUrlInput = lastUrlInput.clone();
+                    newUrlInput.val("");
                     photoCounter = photoCounter + 1;
                     newUrlInput.attr("id", "url" + photoCounter);
                     lastUrlInput.after(newUrlInput);
@@ -59,7 +60,8 @@
                   url: "/registerProducts",
                   data: requestData,
                   success: function (data) {
-                    $("#success-alert").show().fadeOut(1000, function() {$("#success-alert").hide().css('opacity', '1.0');});
+                    $("#registerForm")[0].reset();
+                    $("#successModal").modal();
                   }
                 });
             }
@@ -71,7 +73,7 @@
             </div>
             <div class="jumbotron">
                 <h1 class="display-3">Informe os campos do leil&atildeo:</h1>
-                <form>
+                <form action="javascript:registerProducts();" id="registerForm">
                     <div class="form-group">
                         <label for="name">Nome do produto</label>
                         <input required class="form-control" type="text" id="name" placeholder="Insira um texto"/>
@@ -112,11 +114,27 @@
                     <div class="form-group">
                         <button id="addPhotoButton" class="btn btn-primary btn-lg" type="button" onclick="addPhoto();">Adicionar foto</button>
                     </div>
-                    <button type="button" onclick="registerProducts()" class="btn btn-success btn-lg">Cadastrar</button>
+                    <button type="submit" class="btn btn-success btn-lg">Cadastrar</button>
                 </form>
             </div>
             <div id="success-alert" hidden class="alert alert-success fade in">
                 <strong>Produto registrado com sucesso!</strong>
+            </div>
+        </div>
+        <!-- Success Modal -->
+        <div class="modal fade" id="successModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-ok"></span> Successo!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Produto foi adicionado com sucesso!</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </body>

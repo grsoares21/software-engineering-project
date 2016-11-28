@@ -70,6 +70,7 @@
                       for(i = 0; i < data.length; i++) {
 
                           var newElement = $("<tr></tr>");
+                          newElement.append("<td><img src='" + data[i].photoUrl + "' /></td>");
                           newElement.append("<td>" + data[i].name + "</td>");
                           newElement.append("<td><p>" + data[i].description + "</p></td>");
                           newElement.append("<td><p>" + data[i].defectDescription + "</p></td>");

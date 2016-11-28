@@ -6,7 +6,7 @@
           success: function (data) {
             if(data.userAuthenticated == "Y") {
                 $("#logOut").show();
-                if(data.type == 0) {
+                if(data.type == 0 || data.type == 2) {
                     $("#searchProduct").show();
                 } else if(data.type == 1) {
                     $("#registerProduct").show();

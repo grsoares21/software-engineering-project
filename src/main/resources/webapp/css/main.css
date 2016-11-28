@@ -37,10 +37,12 @@
 .product{
 	border: 1px solid #dddddd;
 	height: 321px;
+	padding: 0px;
 }
 
 .product>img{
-	max-width: 230px;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .product-title{
@@ -48,15 +50,12 @@
 }
 
 .product-desc{
+    margin-top: 5px;
 	font-size: 14px;
 }
 
 .product-price{
 	font-size: 22px;
-}
-
-.product-info{
-		margin-top: 50px;
 }
 
 .content-wrapper {
@@ -97,15 +96,14 @@
 	display: block;
 	float: left;
 	position: relative;
-	padding-right: 20px;
 	border-right: 1px solid #DDD;
 	border-top: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
 }
 
 .service1-item > img {
-	max-height: 110px;
-	max-width: 110px;
+	max-height: 100%;
+	max-width: 100%;
 	opacity: 0.6;
 	transition: all .2s ease-in;
 	-o-transition: all .2s ease-in;
@@ -118,14 +116,20 @@
 	opacity: 1;
 }
 
-.service-image-left {
-	padding-right: 50px;
-}
-
 .service-image-right {
 	padding-left: 50px;
 }
 
 .service-image-left > center > img,.service-image-right > center > img{
-	max-height: 155px;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.service-image-left > center {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+#defectDescription {
+    margin-top: 10px;
 }

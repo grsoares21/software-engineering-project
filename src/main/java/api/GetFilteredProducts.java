@@ -24,7 +24,7 @@ public class GetFilteredProducts extends HttpServlet {
         String querySQL = "SELECT * FROM offered_products WHERE";
 
         querySQL = querySQL + " (name LIKE '%" + searchQuery + "%' OR " +
-                    "product_description LIKE '%" + searchQuery + "%' OR " +
+                    "description LIKE '%" + searchQuery + "%' OR " +
                     "defect_description LIKE '%" + searchQuery + "%')";
 
         if(category != null) {
@@ -42,13 +42,25 @@ public class GetFilteredProducts extends HttpServlet {
             while(result.next()) {
                 JSONObject currentProductJSON = new JSONObject();
 
-                currentProductJSON.put("id", result.getInt("id"));
+                int currentProductId = result.getInt("id");
+                currentProductJSON.put("id", currentProductId);
                 currentProductJSON.put("name", result.getString("name"));
-                currentProductJSON.put("description", result.getString("product_description"));
+                currentProductJSON.put("description", result.getString("description"));
                 currentProductJSON.put("defectDescription", result.getString("defect_description"));
                 currentProductJSON.put("category", result.getInt("category"));
                 currentProductJSON.put("finalDate", result.getString("final_date"));
 
+                //consulta fotos
+                querySQL = "SELECT * FROM product_photos WHERE";
+                querySQL = querySQL + " offered_product_id = " + currentProductId;
+
+                Statement photoStmt = conn.createStatement();
+                ResultSet photosResult = photoStmt.executeQuery(querySQL);
+                if (photosResult.next()) {
+                    currentProductJSON.put("photoUrl", photosResult.getString("url"));
+                }
+                photoStmt.close();
+                photosResult.close();
                 responseArray.put(currentProductJSON);
             }
             resp.setContentType("application/json");
@@ -61,6 +73,5 @@ public class GetFilteredProducts extends HttpServlet {
             System.err.println("An error occurred while trying to search for products in the database.");
             e.printStackTrace();
         }
-
     }
 }
