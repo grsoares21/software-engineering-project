@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <link rel="import" href="/webapp/include/frameworks.html">
         <link rel="stylesheet" href="/webapp/css/main.css">
+        <link rel="import" href="/webapp/include/frameworks.html">
         <script type="text/javascript">
             function loadComponents() {
                 $.ajax({
@@ -49,6 +50,10 @@
                 return date.getDate() + " de " + monthNames[date.getMonth()] + " de " + date.getFullYear();
             }
 
+            function redirectToAuction(id) {
+                window.location.replace("/webapp/pages/auction.html?productId=" + id);
+            }
+
             function searchProducts () {
                var categoryVal = parseInt($("#category").val());
                var searchQueryVal = $("#searchQuery").val();
@@ -66,16 +71,17 @@
                       var i;
                       var tableBody = $("#resultTableBody");
                       tableBody.empty();
+                      tableBody.addClass("product-list");
 
                       for(i = 0; i < data.length; i++) {
 
-                          var newElement = $("<tr></tr>");
-                          newElement.append("<td><img src='" + data[i].photoUrl + "' /></td>");
-                          newElement.append("<td>" + data[i].name + "</td>");
-                          newElement.append("<td><p>" + data[i].description + "</p></td>");
-                          newElement.append("<td><p>" + data[i].defectDescription + "</p></td>");
-                          newElement.append("<td>" + getCategoryName(data[i].category) + "</td>");
-                          newElement.append("<td>" + getDateFullString(new Date(data[i].finalDate)) + "</td>");
+                          var newElement = $("<tr onclick='redirectToAuction(" + data[i].id + ")'></tr>");
+                          newElement.append("<td style='vertical-align: middle;'><img src='" + data[i].photoUrl + "' /></td>");
+                          newElement.append("<td style='vertical-align: middle;'>" + data[i].name + "</td>");
+                          newElement.append("<td style='vertical-align: middle;'><p>" + data[i].description + "</p></td>");
+                          newElement.append("<td style='vertical-align: middle;'><p>" + data[i].defectDescription + "</p></td>");
+                          newElement.append("<td style='vertical-align: middle;'>" + getCategoryName(data[i].category) + "</td>");
+                          newElement.append("<td style='vertical-align: middle;'>" + getDateFullString(new Date(data[i].finalDate)) + "</td>");
                           tableBody.append(newElement);
                       }
 

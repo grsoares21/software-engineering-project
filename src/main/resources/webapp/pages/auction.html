@@ -36,7 +36,6 @@
                       url: "/getAuction",
                       data: requestData,
                       success: function (data) {
-                        debugger;
                         $(".product-title").text(data.name);
                         $(".product-desc").text(data.description);
                         $(".product-price").text("R$" + data.price);
@@ -60,7 +59,7 @@
                 <div class="item-container">
                     <div class="container">
                         <div class="col-md-5">
-                            <div class="product col-md-8 service-image-left">
+                            <div class="product col-xs-4 col-sm-4 col-md-8 service-image-left">
                                 <center>
                                     <img id="item-display" src="" alt="" />
                                 </center>

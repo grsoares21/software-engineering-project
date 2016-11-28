@@ -133,3 +133,13 @@
 #defectDescription {
     margin-top: 10px;
 }
+
+.product-list > tr > td > img {
+    max-height: 100px;
+    max-width: 100%;
+}
+
+.product-list :hover {
+    background-color: #DEF;
+    cursor: pointer;
+}
