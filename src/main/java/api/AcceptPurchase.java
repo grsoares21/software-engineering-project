@@ -37,12 +37,12 @@ public class AcceptPurchase extends HttpServlet {
             String sellerEmail = sellerUserResult.getString(4);
             int productId = sellerUserResult.getInt(5);
 
-            String buyerReportText = "Você aceitou a compra do produto: " + productName + ". O nome do vendedor do " +
-                    "produto é" + sellerName + " e seu e-mail é " + sellerEmail + ". Por favor confirme o recebimento do" +
-                    " produto assim que recebê-lo.";
+            String buyerReportText = "Voce aceitou a compra do produto: " + productName + ". O nome do vendedor do " +
+                    "produto e " + sellerName + " e seu e-mail e " + sellerEmail + ". Por favor confirme o recebimento do" +
+                    " produto assim que recebe-lo.";
 
-            String sellerReportText = "Você vendeu o produto: " + productName + ". O nome do comprador do " +
-                    "produto é" + buyerName + " e seu e-mail é " + buyerEmail + ". Por favor contate o comprador para" +
+            String sellerReportText = "Voce vendeu o produto: " + productName + ". O nome do comprador do " +
+                    "produto e" + buyerName + " e seu e-mail e " + buyerEmail + ". Por favor contate o comprador para" +
                     " discutir o encaminhamento do produto.";
 
             Statement reportStmts = conn.createStatement();

@@ -35,7 +35,7 @@ public class RegisterBid extends HttpServlet {
 
             java.util.Date today = new java.util.Date();
             Date date = new Date(today.getTime());
-            String reportText = "Você efetuou um lance no valor de R$" + bidValue + " para o produto: " + productName + ".";
+            String reportText = "Voce efetuou um lance no valor de R$" + bidValue + " para o produto: " + productName + ".";
             String insertBidReportSQL = "INSERT INTO reports (subject_user, date, type, text)"
                     + " VALUES (" + userId
                     + ", " + date

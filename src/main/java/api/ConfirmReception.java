@@ -38,8 +38,8 @@ public class ConfirmReception extends HttpServlet {
             ResultSet sellerReportResult = stmt.executeQuery(getSellerReportSQL);
             int sellerReportId = sellerReportResult.getInt("id");
 
-            String newSellerReportText = "O usuário " + buyerName + " recebeu o seu produto: " + productName;
-            String newBuyerReportText = "Você recebeu com sucesso o produto " + productName;
+            String newSellerReportText = "O usuario " + buyerName + " recebeu o seu produto: " + productName;
+            String newBuyerReportText = "Voce recebeu com sucesso o produto " + productName;
 
             String updateSellerReportSQL = "UPDATE reports SET text='" + newSellerReportText + "' WHERE id=" + sellerReportId;
             String updateBuyerReportSQL = "UPDATE reports SET text='" + newBuyerReportText+ "', type=4 WHERE id=" + buyerReportId;

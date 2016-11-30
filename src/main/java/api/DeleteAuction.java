@@ -32,7 +32,7 @@ public class DeleteAuction extends HttpServlet {
             String getUserSQL = "SELECT type FROM users WHERE session_token='" + sessionToken + "'";
             ResultSet userResult = stmt.executeQuery(getUserSQL);
             if(userResult.getInt("type") != 2) {
-                return; //apenas admins podem deletar leilões
+                return; //apenas admins podem deletar leiloes
             }
 
             stmt.executeUpdate(querySQL);

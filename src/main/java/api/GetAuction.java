@@ -52,7 +52,7 @@ public class GetAuction extends HttpServlet {
                     productJSON.put("email", userResult.getString("email"));
                 }
 
-                //consulta lances para saber o preço
+                //consulta lances para saber o preco
                 querySQL = "SELECT MAX(bid_value) FROM bids WHERE offered_product_id = " + productId;
                 ResultSet bidsResult = stmt.executeQuery(querySQL);
                 float price = 0;
