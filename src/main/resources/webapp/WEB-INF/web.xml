@@ -6,15 +6,6 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>testServlet</servlet-name>
-        <servlet-class>api.TestRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>testServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>getFilteredProducts</servlet-name>
         <servlet-class>api.GetFilteredProducts</servlet-class>
     </servlet>
@@ -75,6 +66,24 @@
     <servlet-mapping>
         <servlet-name>authenticateUser</servlet-name>
         <url-pattern>/authenticateUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registerBid</servlet-name>
+        <servlet-class>api.RegisterBid</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerBid</servlet-name>
+        <url-pattern>/registerBid</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteAuction</servlet-name>
+        <servlet-class>api.DeleteAuction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteAuction</servlet-name>
+        <url-pattern>/deleteAuction</url-pattern>
     </servlet-mapping>
 
 </web-app>

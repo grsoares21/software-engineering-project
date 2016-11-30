@@ -9,7 +9,7 @@
                   type: "POST",
                   url: "/authenticateUser",
                   success: function (data) {
-                    if(data.userAuthenticated != "Y" || data.type != 0) {
+                    if(data.userAuthenticated != "Y" || data.type == 1) {
                         window.location.replace("/");
                     }
                   }

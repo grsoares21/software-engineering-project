@@ -51,7 +51,7 @@ public class LogInUser extends HttpServlet {
             conn.close();
             result.close();
         } catch (SQLException e) {
-            System.err.println("An error occurred while trying to search for product in the database.");
+            System.err.println("An error occurred while trying to log a user in.");
             e.printStackTrace();
         }
 

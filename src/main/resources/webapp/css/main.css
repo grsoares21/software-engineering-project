@@ -54,6 +54,12 @@
 	font-size: 14px;
 }
 
+.product-cat{
+    margin-top: 5px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
 .product-price{
 	font-size: 22px;
 }

@@ -61,6 +61,9 @@
                   data: requestData,
                   success: function (data) {
                     $("#registerForm")[0].reset();
+                    for(var i = 2; i <= photoCounter; i++) {
+                        $("#url" + i).remove();
+                    }
                     $("#successModal").modal();
                   }
                 });
@@ -134,7 +137,6 @@
                         <p>Produto foi adicionado com sucesso!</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </body>
