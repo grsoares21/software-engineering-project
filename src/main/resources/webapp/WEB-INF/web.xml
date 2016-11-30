@@ -86,4 +86,31 @@
         <url-pattern>/deleteAuction</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>getReports</servlet-name>
+        <servlet-class>api.GetReports</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getReports</servlet-name>
+        <url-pattern>/getReports</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>acceptPurchase</servlet-name>
+        <servlet-class>api.AcceptPurchase</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>acceptPurchase</servlet-name>
+        <url-pattern>/acceptPurchase</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>confirmReception</servlet-name>
+        <servlet-class>api.ConfirmReception</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>confirmReception</servlet-name>
+        <url-pattern>/confirmReception</url-pattern>
+    </servlet-mapping>
+
 </web-app>

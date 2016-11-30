@@ -1,25 +1,20 @@
 package api;
 
 import db.DatabaseHelper;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Random;
+import java.sql.*;
 
 public class RegisterBid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String bidValue = req.getParameter("bidValue");
         String productId = req.getParameter("productId");
+        String productName = req.getParameter("productName");
         String sessionToken = req.getSession().getAttribute("session_token").toString();
 
         Connection conn = DatabaseHelper.getDatabaseConnection();
@@ -37,6 +32,17 @@ public class RegisterBid extends HttpServlet {
 
 
             stmt.executeUpdate(insertBidSQL);
+
+            java.util.Date today = new java.util.Date();
+            Date date = new Date(today.getTime());
+            String reportText = "Você efetuou um lance no valor de R$" + bidValue + " para o produto: " + productName + ".";
+            String insertBidReportSQL = "INSERT INTO reports (subject_user, date, type, text)"
+                    + " VALUES (" + userId
+                    + ", " + date
+                    + ", 0"
+                    + ", '" + reportText + "')";
+            stmt.executeUpdate(insertBidReportSQL);
+
             stmt.close();
             conn.close();
         } catch (SQLException e) {

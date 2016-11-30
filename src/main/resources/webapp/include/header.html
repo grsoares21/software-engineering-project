@@ -11,6 +11,7 @@
                 } else if(data.type == 1) {
                     $("#registerProduct").show();
                 }
+                $("#reports").show();
             } else {
                 $("#signUp").show();
                 $("#logInForm").show();
@@ -52,12 +53,15 @@
             </li>
             <li id="registerProduct" style="display: none;" class="nav-item">
                 <a class="nav-link" href="/webapp/pages/register.html">Cadastrar produto</a>
-            </li>
             <li id="searchProduct" style="display: none;" class="nav-item">
-                <a class="nav-link" href="/webapp/pages/search.html">Procurar produto</a>
+            <a class="nav-link" href="/webapp/pages/search.html">Procurar produto</a>
             </li>
             <li id="signUp" style="display: none;" class="nav-item">
-                <a class="nav-link" href="/webapp/pages/signup.html">Cadastrar-se</a>
+            <a class="nav-link" href="/webapp/pages/signup.html">Cadastrar-se</a>
+            </li>
+            </li>
+            <li id="reports" style="display: none;" class="nav-item">
+                <a class="nav-link" href="/webapp/pages/reports.html">Relat&oacute;rios</a>
             </li>
             <button style="display: none;" id="logOut" class="btn btn-warning pull-right" onclick="logOutUser();">Sair</button>
             <form style="display: none; padding: 0px; margin: 0px;" id="logInForm" class="navbar-form navbar-right">

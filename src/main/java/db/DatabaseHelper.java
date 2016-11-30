@@ -17,11 +17,6 @@ public class DatabaseHelper {
                 createBidsTable(conn);
             }
 
-            tables = metaData.getTables(null, null, "complaints", null);
-            if(!tables.next()) {
-                createComplaintsTable(conn);
-            }
-
             tables = metaData.getTables(null, null, "offered_products", null);
             if(!tables.next()) {
                 createOfferedProductsTable(conn);
@@ -32,9 +27,9 @@ public class DatabaseHelper {
                 createProductPhotosTable(conn);
             }
 
-            tables = metaData.getTables(null, null, "sales_reports", null);
+            tables = metaData.getTables(null, null, "reports", null);
             if(!tables.next()) {
-                createSalesReportsTable(conn);
+                createReportsTable(conn);
             }
 
             tables = metaData.getTables(null, null, "users", null);
@@ -78,21 +73,6 @@ public class DatabaseHelper {
         stmt.close();
     }
 
-    private static void createComplaintsTable(Connection conn) throws SQLException {
-        Statement stmt = conn.createStatement();
-        String sql = "CREATE TABLE complaints (" +
-                " id integer NOT NULL CONSTRAINT complaints_pk PRIMARY KEY AUTOINCREMENT," +
-                " reporting_user integer NOT NULL," +
-                " reported_user integer NOT NULL," +
-                " justification text NOT NULL," +
-                " CONSTRAINT complaints_reporting_user FOREIGN KEY (reporting_user)" +
-                " REFERENCES users (id)," +
-                " CONSTRAINT complaints_reported_user FOREIGN KEY (reported_user)" +
-                " REFERENCES users (id)" +
-                ")";
-        stmt.executeUpdate(sql);
-        stmt.close();
-    }
     private static void createOfferedProductsTable(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         String sql = "CREATE TABLE offered_products (" +
@@ -123,17 +103,22 @@ public class DatabaseHelper {
         stmt.close();
     }
 
-    private static void createSalesReportsTable(Connection conn) throws SQLException {
+    private static void createReportsTable(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
-        String sql = "CREATE TABLE sales_reports (" +
+        String sql = "CREATE TABLE reports (" +
                 " id integer NOT NULL CONSTRAINT id PRIMARY KEY AUTOINCREMENT," +
-                " seller_user integer NOT NULL," +
-                " buyer_id integer NOT NULL," +
-                " CONSTRAINT sales_reports_seller_users FOREIGN KEY (seller_user)" +
+                " subject_user integer NOT NULL," +
+                " object_user integer," +
+                " date date NOT NULL," +
+                " type tinyint NOT NULL," +
+                " text text NOT NULL," +
+                " offered_products_id integer," +
+                " CONSTRAINT sales_reports_seller_users FOREIGN KEY (subject_user)" +
                 " REFERENCES users (id)," +
-                " CONSTRAINT sales_reports_buyer_user FOREIGN KEY (buyer_id)" +
-                " REFERENCES users (id)" +
-                ")";
+                " CONSTRAINT sales_reports_buyer_user FOREIGN KEY (object_user)" +
+                " REFERENCES users (id)," +
+                " CONSTRAINT reports_offered_products FOREIGN KEY (offered_products_id)" +
+                " REFERENCES offered_products (id))";
         stmt.executeUpdate(sql);
         stmt.close();
     }

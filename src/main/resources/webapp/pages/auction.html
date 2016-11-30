@@ -34,6 +34,8 @@
                 return categoryArray[index];
             }
 
+            var productName;
+
             function loadComponents() {
                 $.ajax({
                   type: "POST",
@@ -61,7 +63,8 @@
                       url: "/getAuction",
                       data: requestData,
                       success: function (data) {
-                        $(".product-title").text(data.name);
+                        productName = data.name;
+                        $(".product-title").text(productName);
                         $(".product-desc").text(data.description);
                         $(".product-cat").text(getCategoryName(data.category));
                         $(".product-price").text("R$" + data.price.toFixed(2));
@@ -102,6 +105,7 @@
 
                 requestData.bidValue = bidValue;
                 requestData.productId = productId;
+                requestData.productName = productName;
                 $.ajax({
                       type: "POST",
                       url: "/registerBid",
@@ -109,6 +113,7 @@
                       success: function (data) {
                         $("#bidModal").modal("toggle");
                         $("#successModal").modal();
+                        reloadPage();
                       }
                 });
             }

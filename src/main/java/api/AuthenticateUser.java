@@ -37,6 +37,7 @@ public class AuthenticateUser extends HttpServlet {
                 userCredentialsJSON.put("userAuthenticated", "Y");
                 userCredentialsJSON.put("type", result.getInt("type"));
                 userCredentialsJSON.put("name", result.getString("name"));
+                userCredentialsJSON.put("id", result.getInt("id"));
             } else {
                 userCredentialsJSON.put("userAuthenticated", "N");
             }

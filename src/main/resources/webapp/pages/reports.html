@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/webapp/css/main.css">
+        <link rel="import" href="/webapp/include/frameworks.html">
+        <script type="text/javascript">
+            function loadComponents() {
+                var userId;
+                $.ajax({
+                  type: "POST",
+                  url: "/authenticateUser",
+                  success: function (data) {
+                    if(data.userAuthenticated != "Y") {
+                        window.location.replace("/");
+                    } else {
+                        userId = data.id;
+                    }
+                  }
+                });
+
+                $.ajax({
+                  type: "GET",
+                  url: "/getReports",
+                  success: function (data) {
+                    var container = $(".container");
+                    for(var i = 0; i < data.length; i++) {
+                        var newWidget = $("<div class='col-md-3 col-sm-4 col-xs-6 report-widget'></div>");
+                        var widgetTitle;
+                        var widgetText = $("<p></p>");
+                        widgetText.text(data[i].text);
+
+                        if(data[i].type == 0) {//lance efetuado
+                            widgetTitle = $("<center><h2>Lance Efetuado</h2></center>");
+                        } else if(data[i].type == 1) {//lance vencedor
+                            widgetTitle = $("<center><h2>Lance Vencedor</h2></center>");
+                            var acceptPurchaseButton = $("<button class='btn btn-success btn-sm' onclick='acceptPurchase(" + data[i].id + ")'>Aceitar Compra</button>");
+                            newWidget.append(acceptPurchaseButton);
+                        } else if(data[i].type == 2) {//compra
+                            widgetTitle = $("<center><h2>Compra Realizada</h2></center>");
+                            var confirmButton = $("<button class='btn btn-primary btn-sm' onclick='confirmReception(" + data[i].id + ")'>Confirmar recebimento</button>");
+                            newWidget.append(confirmButton);
+                        } else if(data[i].type == 3) {//venda
+                            widgetTitle = $("<center><h2>Venda Realizada</h2></center>");
+                        } else if(data[i].type == 4) {//denuncia
+                            widgetTitle = $("<center><h2>Compra Realizada</h2></center>");
+                        }
+
+                        newWidget.prepend(widgetText);
+                        newWidget.prepend(widgetTitle);
+                        $(".container").append(newWidget);
+                    }
+                  }
+                });
+                $("#header").load("../include/header.html");
+            }
+            window.onload = loadComponents;
+
+            function acceptPurchase(reportId) {
+                var requestData = {};
+                requestData.reportId = reportId;
+
+                $.ajax({
+                  type: "POST",
+                  url: "/acceptPurchase",
+                  data: requestData,
+                  success: function (data) {
+                    $("#successPurchaseModal").modal();
+                  }
+                });
+            }
+
+            function confirmReception(reportId) {
+                var requestData = {};
+                requestData.reportId = reportId;
+
+                $.ajax({
+                  type: "POST",
+                  url: "/confirmReception",
+                  data: requestData,
+                  success: function (data) {
+                    $("#successReceptionModal").modal();
+                  }
+                });
+            }
+
+            function reloadPage() {
+                window.location.reload();
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+            </div>
+        </div>
+        <!-- Purchase Accepted Modal -->
+        <div class="modal fade" id="successPurchaseModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" onclick="reloadPage();">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-ok"></span> Successo!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>A compra foi aceita com sucesso! Voc&ecirc; receber&aacute; um relat&oacute;rio contendo os dados para contatar o vendedor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reception Confirmed Modal -->
+        <div class="modal fade" id="successReceptionModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" onclick="reloadPage();">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-ok"></span> Successo!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>O recebimento foi confirmado com sucesso! Informaremos o vendedor do produto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

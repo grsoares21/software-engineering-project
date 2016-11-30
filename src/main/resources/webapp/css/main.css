@@ -149,3 +149,17 @@
     background-color: #DEF;
     cursor: pointer;
 }
+
+.report-widget {
+    background-color: #EEE;
+    border: 10px solid #FFF;
+    border-radius: 30px;
+    padding: 10px;
+    height: 400px;
+    overflow: auto;
+}
+
+.report-widget > center > h2 {
+    border-bottom: 1px solid #AAA;
+    padding-bottom: 5px;
+}
